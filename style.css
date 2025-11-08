@@ -376,6 +376,9 @@ body {
     background: rgba(0, 0, 0, 0.7);
     z-index: 9999;
     animation: fadeIn 0.3s;
+    padding: 1rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal-overlay.active {
@@ -388,12 +391,13 @@ body {
     background: white;
     border-radius: 20px;
     max-width: 900px;
-    width: 90%;
+    width: 100%;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
     animation: slideUp 0.4s;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    margin: auto;
 }
 
 .modal-header {
@@ -583,24 +587,97 @@ body {
 }
 
 @media (max-width: 768px) {
+    .modal-overlay {
+        padding: 0.5rem;
+        align-items: flex-start;
+        padding-top: 2rem;
+    }
+
     .modal-content {
-        width: 95%;
-        margin: 1rem;
+        width: 100%;
+        margin: 0;
+        max-height: none;
+        border-radius: 15px;
     }
 
     .modal-header {
         padding: 1.5rem;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .modal-header h2 {
+        font-size: 1.5rem;
+        padding-right: 2.5rem;
+    }
+
+    .modal-close {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
     }
 
     .modal-body {
         padding: 1.5rem;
     }
 
+    .modal-image {
+        height: 200px;
+    }
+
+    .modal-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .modal-info-item {
+        padding: 1rem;
+    }
+
+    .modal-info-item i {
+        font-size: 1.5rem;
+    }
+
+    .modal-info-item h6 {
+        font-size: 0.75rem;
+    }
+
+    .modal-info-item p {
+        font-size: 0.95rem;
+    }
+
     .modal-price {
-        font-size: 2rem;
+        font-size: 1.8rem;
+    }
+
+    .modal-price-section {
+        padding: 1.5rem;
     }
 
     .modal-actions {
         flex-direction: column;
+    }
+
+    .modal-actions button {
+        padding: 0.9rem;
+        font-size: 0.95rem;
+    }
+
+    .feature-list li {
+        padding: 0.6rem 0;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .modal-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-price {
+        font-size: 1.6rem;
     }
 }
