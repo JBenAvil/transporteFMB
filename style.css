@@ -12,10 +12,14 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--dark-color);
-    overflow-x: hidden;
 }
 
 /* Navbar */
@@ -289,6 +293,7 @@ body {
 
 .contact-info {
     padding: 2rem;
+    max-width: 100%;
 }
 
 .contact-item {
@@ -301,6 +306,22 @@ body {
     font-size: 2rem;
     margin-right: 1rem;
     color: var(--accent-color);
+    flex-shrink: 0;
+}
+
+.contact-logo-img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .contact-logo-img {
+        max-width: 100%;
+        margin-top: 2rem;
+    }
 }
 
 /* Footer */
@@ -540,6 +561,7 @@ body {
     display: flex;
     gap: 1rem;
     margin-top: 2rem;
+    justify-content: center;
 }
 
 .modal-actions button {

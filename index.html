@@ -219,7 +219,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <img src="static/icon_tfmb.png" alt="imng_logo" height="">
+                    <img src="static/icon_tfmb.png" alt="Logo Transportes FMB" class="contact-logo-img">
                 </div>
             </div>
         </div>
@@ -259,7 +259,7 @@
         </div>
     </footer>
  
-     <!-- Modal for Vehicle Details -->
+    <!-- Modal for Vehicle Details -->
     <div id="vehicleModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -679,11 +679,13 @@
             });
         });
 
-        // Whatsapp floating button (optional enhancement)
+        // Whatsapp floating button
         const whatsappBtn = document.createElement('a');
         whatsappBtn.href = 'https://wa.me/56912345678';
         whatsappBtn.target = '_blank';
+        whatsappBtn.rel = 'noopener noreferrer';
         whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i>';
+        whatsappBtn.setAttribute('aria-label', 'Contactar por WhatsApp');
         whatsappBtn.style.cssText = `
             position: fixed;
             bottom: 20px;
@@ -698,18 +700,21 @@
             justify-content: center;
             font-size: 30px;
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
-            z-index: 1000;
+            z-index: 9998;
             transition: all 0.3s;
             text-decoration: none;
         `;
-        whatsappBtn.onmouseover = function() {
+        
+        whatsappBtn.addEventListener('mouseenter', function() {
             this.style.transform = 'scale(1.1)';
             this.style.boxShadow = '0 6px 20px rgba(37, 211, 102, 0.6)';
-        };
-        whatsappBtn.onmouseout = function() {
+        });
+        
+        whatsappBtn.addEventListener('mouseleave', function() {
             this.style.transform = 'scale(1)';
             this.style.boxShadow = '0 4px 12px rgba(37, 211, 102, 0.4)';
-        };
+        });
+        
         document.body.appendChild(whatsappBtn);
     </script>
 </body>
