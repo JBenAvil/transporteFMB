@@ -258,11 +258,12 @@
             </div>
         </div>
     </footer>
- <!-- Modal for Vehicle Details -->
+ 
+     <!-- Modal for Vehicle Details -->
     <div id="vehicleModal" class="modal-overlay">
-        <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-content">
             <div class="modal-header">
-                <button class="modal-close" onclick="closeModal()">
+                <button class="modal-close" type="button" id="closeModalBtn">
                     <i class="fas fa-times"></i>
                 </button>
                 <h2 id="modalTitle"></h2>
@@ -301,8 +302,8 @@
                 </div>
 
                 <div class="modal-actions">
-                    <button class="btn-secondary-modal" onclick="contactWhatsApp()">
-                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    <button class="btn-secondary-modal" type="button" id="whatsappBtn">
+                        <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
                     </button>
                 </div>
             </div>
@@ -564,7 +565,6 @@
         function viewDetails(id) {
             const vehicle = vehiclesData.find(v => v.id === id);
             if (vehicle) {
-                // Populate modal with vehicle data
                 document.getElementById('modalTitle').textContent = vehicle.name;
                 document.getElementById('modalSubtitle').textContent = vehicle.type === 'arriendo' ? 'Disponible para Arriendo' : 'Disponible para Venta';
                 document.getElementById('modalImage').src = vehicle.image;
@@ -575,45 +575,68 @@
                 document.getElementById('modalPrice').textContent = vehicle.price;
                 document.getElementById('modalPriceType').textContent = vehicle.priceType;
                 
-                // Show modal
-                document.getElementById('vehicleModal').classList.add('active');
+                const modal = document.getElementById('vehicleModal');
+                modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
             }
         }
 
-        // Close modal
+        // Close modal function
         function closeModal() {
             const modal = document.getElementById('vehicleModal');
             modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
         }
 
-        // Close modal when clicking on overlay (outside content)
-        document.getElementById('vehicleModal').addEventListener('click', function(e) {
-            if (e.target === this) {
+        // Event listeners for modal after DOM load
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('vehicleModal');
+            const closeBtn = document.getElementById('closeModalBtn');
+            const reserveBtn = document.getElementById('reserveBtn');
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            
+            // Close button click
+            closeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 closeModal();
-            }
-        });
-
-        // Reserve vehicle
-        function reserveVehicle() {
-            const vehicleName = document.getElementById('modalTitle').textContent;
-            alert(`¡Excelente elección!\n\nVehículo: ${vehicleName}\n\nEn breve te contactaremos para confirmar tu reserva.\n\n¡Gracias por confiar en Transportes FMB!`);
-            closeModal();
-        }
-
-        // Contact via WhatsApp
-        function contactWhatsApp() {
-            const vehicleName = document.getElementById('modalTitle').textContent;
-            const message = encodeURIComponent(`Hola! Estoy interesado en el ${vehicleName}. ¿Podrían darme más información?`);
-            window.open(`https://wa.me/56912345678?text=${message}`, '_blank');
-        }
-
-        // Close modal with ESC key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
+            });
+            
+            // Close on overlay click
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Reserve button
+            reserveBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const vehicleName = document.getElementById('modalTitle').textContent;
+                alert('¡Excelente elección!\n\nVehículo: ' + vehicleName + '\n\nEn breve te contactaremos para confirmar tu reserva.\n\n¡Gracias por confiar en Transportes FMB!');
                 closeModal();
-            }
+            });
+            
+            // WhatsApp button
+            whatsappBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const vehicleName = document.getElementById('modalTitle').textContent;
+                const message = encodeURIComponent('Hola! Estoy interesado en el ' + vehicleName + '. ¿Podrían darme más información?');
+                window.open('https://wa.me/56912345678?text=' + message, '_blank');
+            });
+            
+            // Close with ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
         });
 
         // Intersection Observer for animations
